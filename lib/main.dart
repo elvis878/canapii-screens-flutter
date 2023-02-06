@@ -1,38 +1,37 @@
+import 'package:canapii_app_flutter/utils/routing_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'common/themes.dart';
-import 'mock_ui.dart';
-import 'router.dart';
+import 'router.dart' as router;
 
 void main() {
   runApp(const CanapiiApp());
 }
 
-class CanapiiApp extends StatefulWidget {
+class CanapiiApp extends StatelessWidget {
   const CanapiiApp({super.key});
 
   @override
-  State<CanapiiApp> createState() => _CanapiiAppState();
-}
-
-class _CanapiiAppState extends State<CanapiiApp> {
-  @override
-  void initState() {
-    super.initState();
-    canapiiTheme.addListener(() {
-      setState(() {});
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Canapii',
-      theme: CanapiiTheme.lightMode,
-      darkTheme: CanapiiTheme.darkMode,
-      themeMode: canapiiTheme.themeMode,
-      home: const MockUI(),
-      onGenerateRoute: AppRoutes.routes,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ThemeProvider())
+      ],
+      child: Builder(
+        builder: (context) {
+          final themeProvider = Provider.of<ThemeProvider>(context);
+
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Canapii',
+            theme: CanapiiTheme.lightMode,
+            darkTheme: CanapiiTheme.darkMode,
+            themeMode: themeProvider.themeMode,
+            initialRoute: rootRoute,
+            onGenerateRoute: router.generateRoute,
+          );
+        }
+      ),
     );
   }
 }

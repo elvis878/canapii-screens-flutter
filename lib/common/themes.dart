@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'colors.dart' as colors;
 
-CanapiiTheme canapiiTheme = CanapiiTheme();
-
-class CanapiiTheme with ChangeNotifier {
+class ThemeProvider extends ChangeNotifier {
   ThemeMode themeMode = ThemeMode.system;
 
   bool get isDarkMode {
@@ -20,12 +18,15 @@ class CanapiiTheme with ChangeNotifier {
     themeMode = isDarkOn ? ThemeMode.dark : ThemeMode.light;
     notifyListeners();
   }
+}
 
+class CanapiiTheme {
   static ThemeData get lightMode {
     return ThemeData(
       colorScheme: const ColorScheme.light(),
       primaryColor: colors.AppColor.primaryColor,
       scaffoldBackgroundColor: colors.AppColor.lightBackground,
+      fontFamily: 'Nunito Sans',
       appBarTheme: AppBarTheme(
         backgroundColor: colors.AppColor.primaryColor,
         titleTextStyle: TextStyle(
@@ -45,6 +46,7 @@ class CanapiiTheme with ChangeNotifier {
       colorScheme: const ColorScheme.dark(),
       primaryColor: colors.AppColor.primaryColorDark,
       scaffoldBackgroundColor: colors.AppColor.darkBackground,
+      fontFamily: 'Nunito Sans',
       appBarTheme: AppBarTheme(
         backgroundColor: colors.AppColor.primaryColorDark,
         titleTextStyle: TextStyle(
