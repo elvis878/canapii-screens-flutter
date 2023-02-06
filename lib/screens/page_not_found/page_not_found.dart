@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../common/colors.dart' as colors;
+import 'package:canapii_app_flutter/common/colors.dart' as colors;
 
 class PageNotFound extends StatelessWidget {
   final String? routeName;
